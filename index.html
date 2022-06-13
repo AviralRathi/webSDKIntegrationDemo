@@ -1,60 +1,1197 @@
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://hv-camera-web-sg.s3-ap-southeast-1.amazonaws.com/hyperverge-web-sdk@3.3.5/src/sdk.min.js"></script>
-  </head>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>HyperSnap Demo</title>
+    <script src="https://hv-camera-web-sg.s3.ap-southeast-1.amazonaws.com/hyperverge-web-sdk%40demo/src/sdk.min.js"></script><style>
+  .hv-divider {
+    margin: 0;
+  }
+  .hv-capture-btn:disabled,
+  .hv-capture-btn[disabled]{
+    background-color: #cccccc;
+    color: #666666;
+  }
+  .hv-picker {
+    display: none;
+    cursor: pointer;
+  }
+  .select-label {
+    position: relative;
+    color: black;
+    font-size: 2.3vh;
+    border-radius: 1px;
+    padding: 10px 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  .hv-picker:checked + .select-label{
+    background-image: url(https://hv-camera-web-sg.s3-ap-southeast-1.amazonaws.com/images/checkmark.png);
+    background-repeat: no-repeat;
+    background-position: right;
+    margin-right: 15px;
+    cursor: pointer;
+  }
+  .hv-label-item {
+    cursor: pointer;
+  }
+  .hv-picker:checked{
+    height: 2px;
+    width: 2px;
+    border:: 2px solid white;
+    background-color: black;
+    cursor: pointer;
+  }
+  .hv-radio-list {
+    max-height: 500px;
+    overflow:auto;
+    margin: 10px 0 10px 0;
+    text-indent:10px
+  }
+  .hv-doc-radio-list {
+    max-height: 320px;
+    overflow:auto;
+    margin: 0 0 10px 0;
+  }
+  .hv-back-button {
+  }
+  .hv-back-button:hover {
+    cursor: pointer;
+  }
+  .hv-modal-title {
+    width: 260px;
+    height: 50px;
+    margin: 32px 42px 24px 0;
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #00034d;
+  }
+  .hv-modal-description {
+    width: 290px;
+    height: 50px;
+    margin: 24px 0;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.71;
+    letter-spacing: normal;
+    text-align: left;
+    color: #00034d;
+  }
+  .hv-outlined-button {
+    width: 290px;
+    height: 48px;
+    margin: 24px 0 40px;
+    padding: 13px 24px 14px;
+    border-radius: 5px;
+    border: solid 1.5px #e0e1e4;
+    background-color: white;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .hv-dropDown-countryDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 219px;
+  }
+  .hv-dropDown-countryFlag {
+    width: 36px;
+    height: 36px;
+  }
+  .hv-dropDown-countryName {
+    text-align: left;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    margin-left:6px;
+  }
+  .hv-document-button {
+    width: 302px;
+    height: 48px;
+    margin: 15px 0 0;
+    padding: 14px 26px 13px 21px;
+    border-radius: 5px;
+    border: solid 1.5px #e0e1e4;
+    background-color: white;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-indent:10px;
+    cursor: pointer;
+  }
+  .hv-document-button:hover {
+    background-color: #ebedff;
+  }
+  .hv-proceed-button {
+    width: 302px;
+    height: 48px;
+    flex-grow: 0;
+    margin: 40px 0px 227px;
+    border: solid 1px #335aff;
+    border-radius: 5px;
+    background-color: #335aff;
+    font-family: 'Mulish';
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #fff;
+    cursor: pointer;
+  }
+  .hv-dropdown-arrow {
+    float: right;
+    transform: rotate(90deg);
+    color: #335aff;
+  }
+  .hv-next-arrow {
+    float: right;
+    color: #335aff;
+  }
+  .hv-country-dropdown-text {
+    width: 34px;
+    height: 21px;
+    margin: 0 212px 0 0;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #000;
+  }
+  .hv-country-divider {
+    width: 100%;
+    height: 0.5px;
+    margin: -33.5px 0 0 0;
+    background-color: #dbdbdb;
+  }
+  .hv-search-country {
+    border:none;
+    width: 290px;
+    height: 20px;
+    margin: 0px 86px 48px 4px;
+  }
+  .hv-search-country:focus {
+    outline: none;
+  }
+  .hv-country-text {
+    text-align: center;
+    margin: 0;
+  }
+  .hv-footer-shield {
+    width: 13.3px;
+    height: 15.9px;
+  }
+  </style><style>
+  * {
+  box-sizing: border-box;
+}
+.hv-modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1);
+  z-index:99999999999 !important;
+  transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+}
+.hv-show-modal {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1.3);
+  transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}
+.hv-proceed-btn
+{
+  font-weight: 500;
+  color: white;
+  padding: 5px;
+  width: 15em;
+  max-width: 220px;
+  height: 3.3em;
+  margin-right: 10px;
+  margin-top: 10px;
+  background-color: #335aff;
+  border-color: #335aff;
+  display: inline-block;
+  font-size: 14px;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: .375rem .75rem;
+  line-height: 1.5rem;
+  border-radius: .25rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  margin-bottom: 1%;
+}
+.hv-capture-btn {
+  height: auto;
+  width: 90vw;
+  max-width: 321px;
+  padding: 2vh;
+  margin-top: 10px;
+  border: 1px solid #335aff;
+  border-radius: 10px;
+  background-color: #335aff;
+  font-size: 14px;
+  color: white;
+  font-weight: 500;
+}
+.hv-upload-btn { 
+  border: 1px solid #335aff;
+  display: inline-block;
+  font-size: 14px;
+  padding: 6px 12px;
+  cursor: pointer;
+  margin-top: 25vh;
+  color: black;
+  background-color: #EFEFEF;
+  padding: 2vh;
+  border-radius: 10px;
+  height: auto;
+  width: 90vw;
+  max-width: 321px;
+  background-color: #335aff;
+  margin-bottom: 0.5rem;
+  color: white;
+  font-weight: 500;
+}
+.hv-preview-iframe {
+  height : 37vh;
+}
+.hv-preview-img {
+  height: 35vh;
+  width: 100%;
+  max-width: 450px;
+  max-height: 400px;
+}
+.hv-retake-preview-img {
+  width: 318px;
+  height: 212px;
+  margin: 16px 1px 114px 0;
+  border-radius: 5px;
+}
+.hv-bottom-instructions {
+  font-size: 1.2em;
+  margin-top: 0.5em;
+  color: black;
+  margin-top: 2.3em;
+}
+.hv-modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 24px 16px 16px;
+  width: 350px;
+  height: 623px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.hv-instruction-div {
+  height: 68vh;
+  width: 100%;
+  max-width: 450px;
+}
+.hv-instruction-small-div-left {
+  height: 30%;
+  width: 100%;
+  max-width: 450px;
+  display: grid;
+  grid-template-columns: 60% 10% 30%;
+}
+.hv-instruction-small-div-right {
+  height: 30%;
+  width: 100%;
+  max-width: 450px;
+  display: grid;
+  grid-template-columns: 30% 10% 60%;
+}
+.hv-instruction-small-div-face-text {
+  margin-top: 4%;
+  width: 100%;
+  max-width: 270px;
+  display: grid;
+  grid-template-columns: 10% 90%;
+}
+.hv-instruction-selfie {
+  height : 30vh;
+  margin-top: 5%;
+}
+.hv-instruction-props {
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  margin-top: 5%;
+  grid-column-gap: 3%;
+}
+.hv-instruction-props-img {
+  width : 100%;
+  max-height: 130px;
+}
+.hv-instruction-props-text {
+  font-size: 2vh;
+}
+.hv-instruction-tick {
+  height: 3vh;
+  align-self: center;
+}
+.hv-instruction-img-left {
+  width: 100%;
+  max-width: 230px;
+  align-self: center;
+} 
+.hv-instruction-doc-text {
+  align-self: center;
+} 
+.hv-selfie-img {
+  max-width: 100%;
+  max-height: 100%;
+}
+.hv-close-button {
+  float: right;
+}
+.hv-center-img {
+  height: 75vh;
+  width:100%;
+  max-width: 450px;
+}
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px){
+   .hv-instructions {
+    margin-bottom: 1em !important;
+  }
+}
+@media (min-width:320px) and (max-width:1025px)
+{
+  .hv-modal-content {
+    width: 100%;
+    height: 100%;
+  } 
+  .hv-instruction-props {
+    margin-top : 10%;
+  }
+}
+@media (min-width:320px) and (max-width:1024px)
+{
+  .hv-show-modal {
+    transform: scale(1);
+  }
+  #hv-camera-disabled-button {
+    dispaly: none;
+  }
+}
+@media (min-width:1025px) and (max-width:1440px)
+{
+  .hv-show-modal {
+    transform: scale(1.1, 1.05);
+  }
+}
+@media (min-width:1025px)
+{
+  .hv-modal-content {
+    width: 350px;
+    height: 623px;
+    border-radius: 10px;
+  }
+}
+.hv-close-button:hover {
+  cursor: pointer;
+}
+.hv-title {
+  width: 290px;
+  height: 25px;
+  margin: 19px 31px 24px 8px;
+  font-size: 20px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #00034d;
+}
+.hv-disabled-camera-icon {
+  margin: 0 0 -3px 0;
+  height: 16px;
+  width: 17.6px;
+}
+.hv-camera-icon {
+  margin: 0 0 -3px 0;
+  height: 16px;
+  width: 17.6px;
+}
+.hv-instructions {
+  width: 302px;
+  height: 24px;
+  margin: 24px 8px 32px;
+  
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.71;
+  letter-spacing: normal;
+  text-align: left;
+  color: #00034d;
+}
+.hv-retake-instructions {
+  width: 319px;
+  margin: 16px 0 0 0;
+  display: flex;
+  align-items: center;
+  padding: 16px 16px 16px 16px;
+  background-color: #f9f9f9;
+  font-family: 'Mulish';
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.71;
+  letter-spacing: normal;
+  text-align: left;
+  color: #00034d;
+}
+.hv-steps {
+  opacity: 0.8;
+  font-size: 0.8em;
+  margin-bottom: 0.2em;
+  color: black;
+}
+.hv-modal-footer {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  width: 90%;
+  height: 1em;
+  margin: 0 0 1rem 0;
+  justify-content: center;
+  align-content: center;
+  flex-direction: row;
+  align-items: center;
+}
+.footertext {
+  font-size: 0.7em;
+  line-height: 1em;
+  color: #00034d;
+  margin: 0 0 0 5px;
+}
+.footerimage {
+  height: 1.5em;
+  margin-bottom: -0.4em;
+}
+.hv-btnposition{
+  height: 4.8em;
+}
+.hypervergebtn
+{
+  font-size: 2.3vh;
+  overflow: hidden;
+  height: 9vh;
+  width: 45%;
+  max-width: 25vh;
+  margin-right: 0.4em;
+  line-height: 0;
+  color: #fff;
+  background-color: rgb(31,162,187);
+  border-color: #6c757d;
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  line-height: 1.5rem;
+  border-radius: .25rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.hv-reupload-btn{
+  background-color: white;
+  color: rgb(31, 162, 187);
+  border: 1px solid rgb(31, 162, 187);
+}
+.hv-retake-screen-btn {
+  background-color: white;
+  color: rgb(31, 162, 187);
+  border: 1px solid rgb(31, 162, 187);
+  width: 90%;
+  max-width: 40vh;
+} 
+.hv-retake-btn{ 
+  width: 302px;
+  height: 48px;
+  flex-grow: 0;
+  margin: 90px 8px 16px;
+  border-radius: 5px;
+  border: solid 1px #335aff;
+  background-color: #335aff;
+  color: #fff;
+}
+.hv-use-this-photo-btn{ 
+  width: 302px;
+  height: 48px;
+  margin: -5px 8px 0;
+  border-radius: 5px;
+  border: solid 1.5px #335aff;
+  color: #335aff;
+}
+.hv-user-choice-screen-title {
+  padding-top:5%;
+  color:black;
+  font-size: 1.2em;
+  max-width: 400px;
+}
+.hv-divforcover {
+  bottom: 2em;
+  position: absolute;
+  width: 100%;
+  margin-left: -15px;
+}
+.hv-qr-top-text {
+  padding-top:5%;
+  color:black;
+}
+.hv-qr-bottom-text {
+  padding-top:5%;
+  color:black;
+}
+#hv-cameraLoadingText {
+  text-align: center;
+}
+.hv-retake-screen-exclamation {
+  width: 24px;
+  height: 24px;
+  margin-right: 0.5em;
+}
+.hv-doc-choice-screen-icons { 
+  height: 2.5vh;
+  margin-right: 5px;
+}
+.hv-retake-button {
+  width: 302px;
+  height: 48px;
+  flex-grow: 0;
+  font-family: 'Mulish';
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 1.5em;
+  padding: 13px 0 0 0;
+  border-radius: 5px;
+  border: solid 1px #335aff;
+  background-color: #335aff;
+  cursor: pointer;
+}
+#hv-camera-capture-button-mobile {
+  width:72px;
+  height:72px;
+  margin: 0 0 1.5em;
+}
+#hv-camera-capture-button {
+  width: 302px;
+  height: 48px;
+  flex-grow: 0;
+  margin: 0 0 1.5em;
+  padding: 13px 88px 15px 89px;
+  border-radius: 5px;
+  border: solid 1px #335aff;
+  background-color: #335aff;
+  cursor: pointer;
+}
+#hv-camera-disabled-button {
+  width: 302px;
+  height: 48px;
+  flex-grow: 0;
+  margin: 0 0 1.5em;
+  padding: 13px 88px 15px 89px;
+  border-radius: 5px;
+  border: solid 1px #cfddff;
+  background-color: #cfddff;
+  cursor: pointer;
+}
+#peg-screen {
+  width: 318px;
+  height: 212px;
+  margin: -9px 0 130px;
+  border-radius: 0.4em;
+  background-color: #c4c4c4;
+}
+.capture-text {
+  width: 95px;
+  height: 18px;
+  margin: 0 0 0 6.4px;
+  
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #fff;
+}
+.hv-preview-video {
+  object-fit: cover;
+  object-position: 50% 50%;
+  border-radius: 0.4em;
+}
+.hv-review-buttons {
+  width: 100%;
+}
+.hv-icon-img {
+  width: auto;
+}
+.hv-liveness-face-not-found {
+  border-width: -0.5em;
+  border-style: solid;
+  border-color: red;
+}
+.hv-liveness-face-found {
+  border-width: -0.5em;
+  border-style: solid;
+  border-color: green;
+}
+#hv-face-retake-screen-preview {
+  border-radius: 135px;
+  overflow: hidden;
+  width: 270px;
+  height: 278.1px;
+  object-fit: cover;
+  margin: 24px 24px 89.2px
+}
+#hv-face-retake-screen-title {
+  display: none;
+}
+.hv-retake-msg {
+  margin: 0 0 0 3px;
+  font-family: 'Mulish';
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.71;
+  letter-spacing: normal;
+  text-align: left;
+  color: #00034d;
+}
+.hv-instruction-proceed-button {
+  width: 302px;
+  height: 48px;
+  margin: 0px 0 16px;
+  border-radius: 5px;
+  border: solid 1px #335aff;
+  background-color: #335aff;
+}
+.hv-proceed-text {
+  width: 99px;
+  height: 21px;
+  font-family: Mulish;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #fff;
+}
+.hv-instruction-upload-button {
+  width: 302px;
+  height: 48px;
+  margin: 0px 0 16px;
+  border-radius: 5px;
+  border: solid 1.5px #335aff;
+  padding:11px 60px;
+  cursor: pointer;
+}
+.hv-upload-div {
+  cursor: pointer;
+}
+.hv-upload-text {
+  width: 99px;
+  height: 21px;
+  font-family: Mulish;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #335aff;
+  cursor: pointer;
+}
+.hv-OCR-lottiePlayer {
+  max-height: 75vh;
+  width: 90%;
+  position:absolute;
+  z-index:-1;
+  margin: -159px 0px 9px 0px;
+}
+.hv-OCR-lottiePlayer-ChoiceScreen {
+  max-height: 75vh;
+  width: 90%;
+  position:absolute;
+  z-index:-1;
+  margin: -183px 0px 9px 0px;
+}
+dotlottie-player {
+  width: 315px;
+  height:627px;
+}
+</style><script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <link rel="stylesheet" href="./style.css" id="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script><script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.js"></script><style>.loader {
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #555;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+    float:left;
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .hv-loading-modal-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 15em;
+    height: 3em;
+    border-radius: 0.3rem;
+    overflow: hidden;
+    text-align: center;
+    background-color: #FFF;
+    box-shadow: 0px 1px 4px 1px #77777730;
+  }
+  .hv-loader-msg {
+    float:right;
+    padding-left: 10px;
+    color: black;
+  }
+  .hv-loader-box{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  };   
+  </style><script type="text/javascript" src="https://browser.sentry-cdn.com/6.17.6/bundle.tracing.min.js" crossorigin="anonymous"></script><style></style><style>.loader {
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #555;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+    float:left;
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .hv-loading-modal-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 15em;
+    height: 3em;
+    border-radius: 0.3rem;
+    overflow: hidden;
+    text-align: center;
+    background-color: #FFF;
+    box-shadow: 0px 1px 4px 1px #77777730;
+  }
+  .hv-loader-msg {
+    float:right;
+    padding-left: 10px;
+    color: black;
+  }
+  .hv-loader-box{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  };   
+  </style></head>
+
   <body>
-    <center><h2>Hyperverge WebSDK Demo</h2></center>
-    <div class="container">
-      <div class="form-group">
-        <button type="button" onclick="runLiveness();" class="btn btn-primary">Run Face Liveness</button>
-        <button type="button" onclick="runOCR();" class="btn btn-primary">Run OCR</button>
-      </div>
-      <div id="div1"></div>
-    </div>
-    <script>
-      // client calls the auth api to get the token from their backend server
-      var jwtToken = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6ImE0NmIxMCIsImhhc2giOiI1MGY4ZjAzNTZiNWI1YzE2ODM2OTE5NzBkYTc0OTIwYzQwYjNiN2I1MjlmN2Q3MWY3MTkzZDdmNzhiMjUxNGMwIiwiaWF0IjoxNjU1MTA2NjM4LCJleHAiOjE2NTUxMTI2MzgsImp0aSI6IjExMzE0YmYwLTg0ZjQtNDdkNy1iOGE0LTI4ZWQ1M2ExOWMwZSJ9.cMVSuqlxnz8_BlhnfP1faPX-nuWlqaz-Z39mkHkf719y6eq1fLSv_s9CObYNm42WZEj8CI1K40_tE3Y7cDbtFjyOHlBwKdayNjROGLWJNiye85unE2z3AdIVqMX_M2IlQagacZJrqCOMDzgWbO2tLcTgtjEQwGzVvr7kPOzrLJE'
-      HyperSnapSDK.init(jwtToken, HyperSnapParams.Region.India);
-      HyperSnapSDK.startUserSession();
-      var faceImage = '';
-      var docImage = '';
-      function runOCR() {
-        hvDocConfig = new HVDocConfig();
-        hvDocConfig.setOCRDetails(
-          'https://ind-docs.hyperverge.co/v2.0/readKYC',
-          hvDocConfig.DocumentSide.FRONT,
-          { },
-          { },
-        );
-        hvDocConfig.setShouldShowInstructionPage(true);
-        HVDocsModule.start(hvDocConfig, callback);
-      }
-      function runLiveness() {
-        hvFaceConfig = new HVFaceConfig();
-        hvFaceConfig.setShouldShowInstructionPage(true);
-        hvFaceConfig.setLivenessAPIParameters({
-          rejectFaceMask: 'yes',
-          allowEyesClosed: 'no',
-          allowMultipleFaces: 'no',
-        });
-        HVFaceModule.start(hvFaceConfig, callback);
-      }
-      callback = (HVError, HVResponse) => {
-        if (HVError) {
-          var para = document.createElement('p');
-          var node = document.createTextNode(JSON.stringify(HVError));
-          para.appendChild(node);
-          var element = document.getElementById('div1');
-          element.appendChild(para);
-        } else {
-          var para = document.createElement('p');
-          var node = document.createTextNode(JSON.stringify(HVResponse));
-          para.appendChild(node);
-          var element = document.getElementById('div1');
-          element.appendChild(para);
+    <section class="slice py-7">
+      <div class="container">
+        <div class="row row-grid align-items-center">
+          <div class="col-12 col-md-7 col-lg-6 order-md-1 pr-md-5">
+            <!-- Heading -->
+            <h1 class="display-4 text-center text-md-left mb-3">
+              HyperSnap <strong class="text-primary">Web SDK</strong>
+            </h1>
+            <!-- Text -->
+            <p class="lead text-center text-md-left text-muted">
+              Test our ocr, liveness and facematch modules with this demo!
+            </p>
+            <!-- Buttons -->
+            <div class="text-center text-md-left mt-5">
+              <div class="dbuttons">
+                <button type="button" onclick="auth();" class="dbtn dbtn-gradient gradient4">
+                  Authenticate
+                </button>
+                <br>
+                <br>
+                <select id="workflows">
+                  <option value="test_workflow_config">
+                    India and Nigeria
+                  </option>
+                  <option value="test_workflow_config_phl">Philipines</option>
+                  <option value="test_workflow_config_invalid">Invalid</option>
+                  <option value="test_workflow_config_vn">Vietnam</option>
+                </select>
+                <br>
+                <button type="button" onclick="runGlobal();" class="dbtn dbtn-gradient gradient3">
+                  Global Service
+                </button>
+                <br>
+                <br>
+                <p id="config"><a target="_blank" id="configLink" href="https://hv-central-config.s3.ap-south-1.amazonaws.com/audit-portal/prod/workflow-builder/workflows/appIds/55a3a6/test_workflow_config.json">Click here to see the workflow config</a></p>
+              <pre id="div1"><hr class="solid"> {
+    <span class="key">"Cancelled":</span> {
+        <span class="key">"data":</span> {
+            <span class="key">"selectedCountryId":</span> <span class="string">"ind"</span>,
+            <span class="key">"selectedDocumentId":</span> <span class="string">"id"</span>,
+            <span class="key">"config":</span> {
+                <span class="key">"accessToken":</span> <span class="string">"Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6IjU1YTNhNiIsImhhc2giOiIxZjQxMzU0ODhhNjc0OWU3OTFjMTA0MTRlNTQyYTU4MWY1MTU4YmI1NmU4ZDE2YWE0YzY2YmU1ZTY5MWY4YjlhIiwiaWF0IjoxNjU1MTI3NDU3LCJleHAiOjE2NTUxMzA0NTcsImp0aSI6IjAwMzFiNjg5LWJhMjUtNDQ2Yi1iYmZiLWI4NDg1YjlkOTFiNyJ9.YhTRyXhrY96T975uWiDdc8_RMum7tf-xST9qNtUoy98m7F6kCTkuguykiRKkXZcupVT8i2xTaG30u7k6Fzp-bNT_yX5WA7ihUPN9doE1RVwq8wWOyrAxwXTbqcoCiB-Zj3fPvgGvbCpUcKt9g0XIAcm_cFyaSDHHdtIimT4v4jc"</span>,
+                <span class="key">"workflow":</span> {
+                    <span class="key">"sdk_versions":</span> {
+                        <span class="key">"android":</span> {
+                            <span class="key">"maximum":</span> <span class="string">"1.2.0"</span>,
+                            <span class="key">"minimum":</span> <span class="string">"1.0.0"</span>
+                        },
+                        <span class="key">"ios":</span> {
+                            <span class="key">"maximum":</span> <span class="string">"1.2.0"</span>,
+                            <span class="key">"minimum":</span> <span class="string">"1.0.0"</span>
+                        },
+                        <span class="key">"websdk":</span> {
+                            <span class="key">"maximum":</span> <span class="string">"1.2.0"</span>,
+                            <span class="key">"minimum":</span> <span class="string">"1.0.0"</span>
+                        }
+                    },
+                    <span class="key">"modules":</span> [
+                        {
+                            <span class="key">"type":</span> <span class="string">"countries"</span>,
+                            <span class="key">"subType":</span> <span class="string">"countries"</span>,
+                            <span class="key">"id":</span> <span class="string">"module_1"</span>,
+                            <span class="key">"nextStep":</span> <span class="string">"module_2"</span>,
+                            <span class="key">"properties":</span> {
+                                <span class="key">"countriesSupported":</span> [
+                                    <span class="string">"nga"</span>,
+                                    <span class="string">"ind"</span>
+                                ]
+                            }
+                        },
+                        {
+                            <span class="key">"type":</span> <span class="string">"document"</span>,
+                            <span class="key">"subType":</span> <span class="string">"id_card_verification"</span>,
+                            <span class="key">"id":</span> <span class="string">"module_2"</span>,
+                            <span class="key">"nextStep":</span> <span class="string">"condition_1"</span>,
+                            <span class="key">"properties":</span> {
+                                <span class="key">"allowUpload":</span> <span class="boolean">true</span>,
+                                <span class="key">"countryId":</span> <span class="string">"{module_1.countryId}"</span>,
+                                <span class="key">"url":</span> <span class="string">"{module_1.baseUrl}/v1/readId"</span>,
+                                <span class="key">"documentsSupported":</span> {
+                                    <span class="key">"ind":</span> [
+                                        <span class="string">"pan"</span>,
+                                        <span class="string">"id"</span>,
+                                        <span class="string">"voterid"</span>
+                                    ],
+                                    <span class="key">"nga":</span> [
+                                        <span class="string">"passport"</span>
+                                    ]
+                                }
+                            },
+                            <span class="key">"variables":</span> [
+                                {
+                                    <span class="key">"name":</span> <span class="string">"age"</span>,
+                                    <span class="key">"path":</span> <span class="string">"front.response.result.details[0].fieldsExtracted.age.value"</span>
+                                },
+                                {
+                                    <span class="key">"name":</span> <span class="string">"front_action"</span>,
+                                    <span class="key">"path":</span> <span class="string">"front.response.result.summary.action"</span>
+                                },
+                                {
+                                    <span class="key">"name":</span> <span class="string">"front_status"</span>,
+                                    <span class="key">"path":</span> <span class="string">"front.response.status"</span>
+                                },
+                                {
+                                    <span class="key">"name":</span> <span class="string">"front_statusCode"</span>,
+                                    <span class="key">"path":</span> <span class="string">"front.response.statusCode"</span>
+                                }
+                            ]
+                        },
+                        {
+                            <span class="key">"type":</span> <span class="string">"face"</span>,
+                            <span class="key">"subType":</span> <span class="string">"selfie_verification"</span>,
+                            <span class="key">"id":</span> <span class="string">"module_3"</span>,
+                            <span class="key">"nextStep":</span> <span class="string">"condition_2"</span>,
+                            <span class="key">"properties":</span> {
+                                <span class="key">"url":</span> <span class="string">"{module_1.baseUrl}/v1/checkLiveness"</span>
+                            },
+                            <span class="key">"variables":</span> [
+                                {
+                                    <span class="key">"name":</span> <span class="string">"action"</span>,
+                                    <span class="key">"path":</span> <span class="string">"response.result.summary.action"</span>
+                                },
+                                {
+                                    <span class="key">"name":</span> <span class="string">"liveFace"</span>,
+                                    <span class="key">"path":</span> <span class="string">"response.result.details.liveFace.value"</span>
+                                },
+                                {
+                                    <span class="key">"name":</span> <span class="string">"status"</span>,
+                                    <span class="key">"path":</span> <span class="string">"response.status"</span>
+                                },
+                                {
+                                    <span class="key">"name":</span> <span class="string">"statusCode"</span>,
+                                    <span class="key">"path":</span> <span class="string">"response.statusCode"</span>
+                                }
+                            ]
+                        },
+                        {
+                            <span class="key">"type":</span> <span class="string">"api"</span>,
+                            <span class="key">"subType":</span> <span class="string">"selfie_id_match_api"</span>,
+                            <span class="key">"id":</span> <span class="string">"module_4"</span>,
+                            <span class="key">"nextStep":</span> <span class="string">"condition_3"</span>,
+                            <span class="key">"properties":</span> {
+                                <span class="key">"url":</span> <span class="string">"{module_1.baseUrl}/v1/matchFace"</span>,
+                                <span class="key">"apiType":</span> <span class="string">"multipart_post"</span>,
+                                <span class="key">"requestParameters":</span> [
+                                    {
+                                        <span class="key">"name":</span> <span class="string">"image1"</span>,
+                                        <span class="key">"value":</span> <span class="string">"module_2.front_imagePath"</span>,
+                                        <span class="key">"type":</span> <span class="string">"image"</span>
+                                    },
+                                    {
+                                        <span class="key">"name":</span> <span class="string">"image2"</span>,
+                                        <span class="key">"value":</span> <span class="string">"module_3.croppedImagePath"</span>,
+                                        <span class="key">"type":</span> <span class="string">"image"</span>
+                                    },
+                                    {
+                                        <span class="key">"name":</span> <span class="string">"type"</span>,
+                                        <span class="key">"value":</span> <span class="string">"id"</span>,
+                                        <span class="key">"type":</span> <span class="string">"string"</span>
+                                    }
+                                ]
+                            },
+                            <span class="key">"variables":</span> [
+                                {
+                                    <span class="key">"name":</span> <span class="string">"match"</span>,
+                                    <span class="key">"path":</span> <span class="string">"response.result.details.match.value"</span>
+                                },
+                                {
+                                    <span class="key">"name":</span> <span class="string">"statusCode"</span>,
+                                    <span class="key">"path":</span> <span class="string">"response.statusCode"</span>
+                                }
+                            ]
+                        }
+                    ],
+                    <span class="key">"conditions":</span> {
+                        <span class="key">"condition_1":</span> {
+                            <span class="key">"if_false":</span> <span class="string">"decline"</span>,
+                            <span class="key">"if_true":</span> <span class="string">"module_3"</span>,
+                            <span class="key">"rule":</span> <span class="string">"(module_2.front_statusCode == 200) || (module_2.front_statusCode == 422)"</span>
+                        },
+                        <span class="key">"condition_2":</span> {
+                            <span class="key">"if_false":</span> <span class="string">"decline"</span>,
+                            <span class="key">"if_true":</span> <span class="string">"module_4"</span>,
+                            <span class="key">"rule":</span> <span class="string">"module_3.statusCode == 200 &amp;&amp; module_3.liveFace == 'yes'"</span>
+                        },
+                        <span class="key">"condition_3":</span> {
+                            <span class="key">"if_false":</span> <span class="string">"decline"</span>,
+                            <span class="key">"if_true":</span> <span class="string">"approve"</span>,
+                            <span class="key">"rule":</span> <span class="string">"module_4.match == 'yes'"</span>
+                        }
+                    }
+                },
+                <span class="key">"transactionId":</span> <span class="string">"13a9d1463b"</span>
+            },
+            <span class="key">"docListData":</span> [],
+            <span class="key">"faceData":</span> {},
+            <span class="key">"apiData":</span> {}
         }
+    }
+}
+<hr class="solid"> </pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div></section>
+  
+  <script>
+
+    
+    function auth() {
+      const myHeaders = new Headers();
+      myHeaders.append('Content-Type', 'application/json');
+
+      const raw = JSON.stringify({
+        appId: '55a3a6',
+        appKey: '512079c7b96d514750e1',
+      });
+
+      const requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow',
       };
-    </script>
-  </body>
-</html>
+
+      fetch('https://hypersnapweb.hyperverge.co/authenticate', requestOptions)
+        .then((response) => response.json())
+        .then((response) => {
+          document.cookie = `authToken=${response.data.result.token}; max-age=1800`;
+          location.replace(
+            location.origin +
+              '/index.html?authToken=' +
+              response.data.result.token
+          );
+          alert('Authentication Successful');
+        })
+        .catch((error) => {
+          console.log('error', error);
+          alert('Authentication Failed Please try again');
+        });
+    }
+    function getAuthToken() {
+      const cookies = document.cookie.split(';');
+      let authToken = undefined;
+      for (let i = 0; i < cookies.length; i++) {
+        if (cookies[i].includes('authToken')) {
+          authToken = cookies[i].split('=')[1];
+          break;
+        }
+      }
+      return authToken;
+    }
+    // client calls the auth api to get the token from their backend server
+    const url_string = window.location.href;
+    const url = new URL(url_string);
+    const jwtToken = url.searchParams.get('authToken') || getAuthToken();
+    console.log({ jwtToken });
+    if (!jwtToken) {
+      auth();
+    }
+
+    const transactionId = generateId(10);
+    function dec2hex(dec) {
+      return dec.toString(16).padStart(2, '0');
+    }
+    // generateId :: Integer -> String
+    function generateId(len) {
+      var arr = new Uint8Array((len || 40) / 2);
+      window.crypto.getRandomValues(arr);
+      return Array.from(arr, dec2hex).join('');
+    }
+
+    const workflowsDropdown = document.getElementById('workflows');
+    let workflows = document.getElementById('workflows').value;
+    let link =
+      'https://hv-central-config.s3.ap-south-1.amazonaws.com/audit-portal/prod/workflow-builder/workflows/appIds/55a3a6/' +
+      workflows +
+      '.json';
+
+    workflowsDropdown.onchange = () => {
+      workflows = document.getElementById('workflows').value;
+      link =
+      'https://hv-central-config.s3.ap-south-1.amazonaws.com/audit-portal/prod/workflow-builder/workflows/appIds/55a3a6/' +
+      workflows +
+      '.json';
+      document.getElementById('configLink').href =link;
+    };
+
+    const l = document.getElementById('config');
+    const a = document.createElement('a');
+    a.setAttribute('target', "_blank");
+    a.setAttribute('id', "configLink");
+    a.setAttribute('href', link);
+    a.innerText= 'Click here to see the workflow config';
+    l.appendChild(a);
+
+
+    async function runGlobal() {
+      const hyperKycConfig = new HyperKycConfig(
+        jwtToken,
+        workflows,
+        transactionId
+      );
+      hyperKycConfig.faceTextConfig.setFaceCaptureDescription(
+        'Stay still and Capture now'
+      );
+      HyperKYCModule.launch(hyperKycConfig, callback2);
+    }
+
+    callback2 = (HVResponse) => {
+      var para = document.createElement('p');
+      document.getElementById('div1').innerHTML = `<hr class="solid"> </hr>`;
+      document.getElementById('div1').innerHTML +=
+        syntaxHighlight(JSON.stringify(HVResponse, null, 4)) + '\n';
+      document.getElementById('div1').innerHTML += `<hr class="solid"> </hr>`;
+    };
+
+    function syntaxHighlight(json) {
+      json = json
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+      return json.replace(
+        /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
+        function (match) {
+          var cls = 'number';
+          if (/^"/.test(match)) {
+            if (/:$/.test(match)) {
+              cls = 'key';
+            } else {
+              cls = 'string';
+            }
+          } else if (/true|false/.test(match)) {
+            cls = 'boolean';
+          } else if (/null/.test(match)) {
+            cls = 'null';
+          }
+          return '<span class="' + cls + '">' + match + '</span>';
+        }
+      );
+    }
+  </script>
+
+</body></html>
