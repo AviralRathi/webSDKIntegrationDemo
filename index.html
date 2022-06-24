@@ -7,6 +7,7 @@
     <br />
     <input type="submit" value="Submit" />
   </form>
+  <p id="demo"></p>
   <script>
     const myForm = document.getElementById("myForm");
     const csvFile = document.getElementById("csvFile");
@@ -26,7 +27,9 @@
       // use headers.reduce to create an object
       // object properties derived from headers:values
       // the object passed as an element of the array
-      const arr = rows.map(function (row) {
+      //const arr = 
+        document.getElementById("demo").innerHTML = rows.map(getValues);
+        function getValues(row) {
         const values = row.split(delimiter);        
         return values[2];
         //const el = headers.reduce(function (object, header, index) {
@@ -34,10 +37,10 @@
           //return object;
         //}, {});
         //return el;
-      });
+      };
 
       // return the array
-      return arr;
+      //return arr;
     }
 
     myForm.addEventListener("submit", function (e) {
@@ -47,8 +50,9 @@
 
       reader.onload = function (e) {
         const text = e.target.result;
-        const data = csvToArray(text);
-        document.write(JSON.stringify(data));
+        //const data = 
+        csvToArray(text);
+        //document.write(JSON.stringify(data));
       };
       
       reader.readAsText(input);
