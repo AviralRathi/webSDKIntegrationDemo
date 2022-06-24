@@ -11,7 +11,7 @@
   <script>
     const myForm = document.getElementById("myForm");
     const csvFile = document.getElementById("csvFile");
-
+    var y = [];
     function csvToArray(str, delimiter = ",") {
 
       // slice from start of text to the first \n index
@@ -30,8 +30,11 @@
       //const arr = 
         rows.map(getValues);
         function getValues(row) {
-        const values = row.split(delimiter);        
-        document.getElementById("demo").innerHTML = values[2];
+        const values = row.split(delimiter);
+          x["value1"]=values[0];
+          x["value2"]=values[1];
+          y.push(x);
+        document.getElementById("demo").innerHTML = y;
         //const el = headers.reduce(function (object, header, index) {
          // object[header] = values[index];
           //return object;
