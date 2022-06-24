@@ -1,6 +1,7 @@
 <head> 
 
 </head>
+<p id="demo"></p>
 <body>
   <form id="myForm">
     <input type="file" id="csvFile" accept=".csv" />
@@ -27,12 +28,13 @@
       // object properties derived from headers:values
       // the object passed as an element of the array
       const arr = rows.map(function (row) {
-        const values = row.split(delimiter);
-        const el = headers.reduce(function (object, header, index) {
-          object[header] = values[index];
-          return object;
-        }, {});
-        return el;
+        const values = row.split(delimiter);        
+        document.getElementById("demo").innerHTML = values[2];
+        //const el = headers.reduce(function (object, header, index) {
+         // object[header] = values[index];
+          //return object;
+        //}, {});
+        //return el;
       });
 
       // return the array
