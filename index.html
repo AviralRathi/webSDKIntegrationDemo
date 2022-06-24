@@ -28,10 +28,10 @@
       // object properties derived from headers:values
       // the object passed as an element of the array
       //const arr = 
-        document.getElementById("demo").innerHTML = rows.map(getValues);
+        rows.map(getValues);
         function getValues(row) {
         const values = row.split(delimiter);        
-        return values[2];
+        document.getElementById("demo").innerHTML = values[2];
         //const el = headers.reduce(function (object, header, index) {
          // object[header] = values[index];
           //return object;
