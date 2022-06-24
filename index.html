@@ -1,65 +1,101 @@
-<head> 
+<html>
+	<head> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="https://hv-camera-web-sg.s3-ap-southeast-1.amazonaws.com/hyperverge-web-sdk@3.3.5/src/sdk.min.js"></script>
+	</head>
+	<body>
+	  <form id="myForm">
+		<input type="file" id="csvFile" accept=".csv" />
+		<br />
+		<input type="submit" value="Submit" />
+	  </form>
+	  <p id="div1"></p>
+	  <script>
+		var jwtToken = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6ImE0NmIxMCIsImhhc2giOiI1MGY4ZjAzNTZiNWI1YzE2ODM2OTE5NzBkYTc0OTIwYzQwYjNiN2I1MjlmN2Q3MWY3MTkzZDdmNzhiMjUxNGMwIiwiaWF0IjoxNjU2MDc5NDMyLCJleHAiOjE2NTYwODU0MzIsImp0aSI6IjQ1MDRlZWY4LWY5MTAtNGVmOC05ODY2LWViN2EzMjUzZTE3ZiJ9.WGSinnpRIKuHu-AxTINgbLxKsk2qzwZZGDklCGN_aktoDeKKulI-c67QB5pX9xG4tYXYuT0CLwedZBHc3hYqOkdSf4l_bXnM0tUh_ATnfyR2Sldo2SgA6oeBHTlFvFrJpM0hcIc2OCKbZpTC49LINufg3l6T8Sazeu6fcIQqn-E'
+			HyperSnapSDK.init(jwtToken, HyperSnapParams.Region.India);
+			HyperSnapSDK.startUserSession();
+			
+		const myForm = document.getElementById("myForm");
+		const csvFile = document.getElementById("csvFile");
+		var y = [];
+		function csvToArray(str, delimiter = ",") {
 
-</head>
-<body>
-  <form id="myForm">
-    <input type="file" id="csvFile" accept=".csv" />
-    <br />
-    <input type="submit" value="Submit" />
-  </form>
-  <p id="demo"></p>
-  <script>
-    const myForm = document.getElementById("myForm");
-    const csvFile = document.getElementById("csvFile");
-    var y = [];
-    function csvToArray(str, delimiter = ",") {
+		  // slice from start of text to the first \n index
+		  // use split to create an array from string by delimiter
+		  const headers = str.slice(0, str.indexOf("\n")).split(delimiter);
 
-      // slice from start of text to the first \n index
-      // use split to create an array from string by delimiter
-      const headers = str.slice(0, str.indexOf("\n")).split(delimiter);
+		  // slice from \n index + 1 to the end of the text
+		  // use split to create an array of each csv value row
+		  const rows = str.slice(str.indexOf("\n") + 1).split("\n");
 
-      // slice from \n index + 1 to the end of the text
-      // use split to create an array of each csv value row
-      const rows = str.slice(str.indexOf("\n") + 1).split("\n");
+		  // Map the rows
+		  // split values from each row into an array
+		  // use headers.reduce to create an object
+		  // object properties derived from headers:values
+		  // the object passed as an element of the array
+		  //const arr = 
+			rows.map(getValues);
+			function getValues(row) {
+			const values = row.split(delimiter);
+				
+				 // callback for faceMatch
+					callback = (HVError, HVResponse) => {
+					 if (HVError) {
+					  //var para = document.createElement('p');
+					  //var node = document.createTextNode(JSON.stringify(HVError));
+					  //para.appendChild(node);
+					  //var element = document.getElementById('div1');
+					  //element.appendChild(para);
+					  var x = {};
+					  x["statusCode"] = HVError.errorCode;
+					  x["message"] = HVError.errorMsg;
+					  
+					  y.push(x);
+					  document.getElementById("div1").innerHTML = JSON.stringify(y);
+					 } 
+				 else {
+					  //var para = document.createElement('p');
+					  //var node = document.createTextNode(JSON.stringify(HVResponse));
+					  //para.appendChild(node);
+					  //var element = document.getElementById('div1');
+					  //element.appendChild(para);
+					var x = {};
+					x["statusCode"] = HVResponse.getApiResult().statusCode;
+					x["match"] = HVResponse.getApiResult().result.match;
+					x["review"] = HVResponse.getApiResult().result['to-be-reviewed'];
+					
+					y.push(x);
+					document.getElementById("div1").innerHTML = JSON.stringify(y);
+			  }
+			};
+			
+			HVNetworkHelper.makeFaceMatchCall(values[3], values[2], {},{}, callback);
+			
+			//const el = headers.reduce(function (object, header, index) {
+			 // object[header] = values[index];
+			  //return object;
+			//}, {});
+			//return el;
+		  };
 
-      // Map the rows
-      // split values from each row into an array
-      // use headers.reduce to create an object
-      // object properties derived from headers:values
-      // the object passed as an element of the array
-      //const arr = 
-        rows.map(getValues);
-        function getValues(row) {
-        const values = row.split(delimiter);
-          var x = {};
-          x["value1"]=values[0];
-          x["value2"]=values[1];
-          y.push(x);
-        document.getElementById("demo").innerHTML = JSON.stringify(y);
-        //const el = headers.reduce(function (object, header, index) {
-         // object[header] = values[index];
-          //return object;
-        //}, {});
-        //return el;
-      };
+		  // return the array
+		  //return arr;
+		}
 
-      // return the array
-      //return arr;
-    }
+		myForm.addEventListener("submit", function (e) {
+		  e.preventDefault();
+		  const input = csvFile.files[0];
+		  const reader = new FileReader();
 
-    myForm.addEventListener("submit", function (e) {
-      e.preventDefault();
-      const input = csvFile.files[0];
-      const reader = new FileReader();
-
-      reader.onload = function (e) {
-        const text = e.target.result;
-        //const data = 
-        csvToArray(text);
-        //document.write(JSON.stringify(data));
-      };
-      
-      reader.readAsText(input);
-    });
-  </script>
-</body>
+		  reader.onload = function (e) {
+			const text = e.target.result;
+			//const data = 
+			csvToArray(text);
+			//document.write(JSON.stringify(data));
+		  };
+		  
+		  reader.readAsText(input);
+		});
+	  </script>
+	</body>
+</html>
