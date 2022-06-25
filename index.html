@@ -81,7 +81,8 @@
 					 else if(HVResponse.getApiResult().result.match == "yes" && HVResponse.getApiResult().result['to-be-reviewed'] == "yes"){ matchReviewYes++;}
 					 	else if(HVResponse.getApiResult().result.match == "no" && HVResponse.getApiResult().result['to-be-reviewed'] == "no"){ noMatchReviewNo++;}
 					 		else if(HVResponse.getApiResult().result.match == "no" && HVResponse.getApiResult().result['to-be-reviewed'] == "yes"){ noMatchReviewYes++;}
-					 console.log(matchReviewNo, matchReviewYes, noMatchReviewNo, noMatchReviewYes);
+					 console.log(matchReviewNo, matchReviewYes, noMatchReviewYes, noMatchReviewNo);
+					 console.log(values[2]);
 					document.getElementById("div1").innerHTML = JSON.stringify(y);
 					 
 					 //var para = document.createElement('p');
