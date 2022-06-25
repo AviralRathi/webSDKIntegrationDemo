@@ -94,8 +94,8 @@
 					 document.getElementById("noMatchReviewNo").innerHTML = noMatchReviewNo;
 			  }
 			};
-			
-			setTimeout(function () {HVNetworkHelper.makeFaceMatchCall(values[3], values[2].substr(4,values[2].length-8), {},{}, callback)}, 1000);
+			const ckycString = values[2] || 'thirteenchars';
+			setTimeout(function () {HVNetworkHelper.makeFaceMatchCall(values[3], ckycString.substr(4,ckycString.length-8), {},{}, callback)}, 1000);
 			
 			//const el = headers.reduce(function (object, header, index) {
 			 // object[header] = values[index];
