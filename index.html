@@ -10,8 +10,8 @@
 		<input type="submit" value="Submit" />
 	  </form>
 		<p id="error">Error Count = </p>
-		<p id="matchReviewYes"> Match with Review as Yes = </p>
 		<p id="matchReviewNo"> Match with Review as No = </p>
+		<p id="matchReviewYes"> Match with Review as Yes = </p>
 		<p id="noMatchReviewYes"> No Match with Review as Yes = </p>
 		<p id="noMatchReviewNo"> No Match with Review as No = </p>
 		<p id="div1"></p>
@@ -23,7 +23,6 @@
 		const myForm = document.getElementById("myForm");
 		const csvFile = document.getElementById("csvFile");
 		var y = [];
-		var values = [];
 		var matchReviewYes = 0;
 		var matchReviewNo = 0;
 		var noMatchReviewYes = 0;
@@ -47,7 +46,7 @@
 		  //const arr = 
 			rows.map(getValues);
 			function getValues(row) {
-			values = row.split(delimiter);
+			const values = row.split(delimiter);
 				
 				 // callback for faceMatch
 					callback = (HVError, HVResponse) => {
@@ -96,7 +95,7 @@
 			  }
 			};
 			
-			setTimeout(function () {HVNetworkHelper.makeFaceMatchCall(values[3], values[2].substring(4,values[2].length-4), {},{}, callback)}, 1000);
+			setTimeout(function () {HVNetworkHelper.makeFaceMatchCall(values[3], values[2].substr(4,values[2].length-8), {},{}, callback)}, 1000);
 			
 			//const el = headers.reduce(function (object, header, index) {
 			 // object[header] = values[index];
