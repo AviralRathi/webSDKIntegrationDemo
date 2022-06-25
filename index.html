@@ -77,10 +77,10 @@
 					x["review"] = HVResponse.getApiResult().result['to-be-reviewed'];
 					
 					y.push(x);
-					 if(x.match == "yes" && x.review == "no"){ matchReviewNo++;}
-					 else if(x.match == "yes" && x.review == "yes"){ matchReviewYes++;}
-					 	else if(x.match == "no" && x.review == "no"){ noMatchReviewNo++;}
-					 		else if(x.match == "no" && x.review == "yes"){ noMatchReviewYes++;}
+					 if(HVResponse.getApiResult().result.match == "yes" && HVResponse.getApiResult().result['to-be-reviewed'] == "no"){ matchReviewNo++;}
+					 else if(HVResponse.getApiResult().result.match == "yes" && HVResponse.getApiResult().result['to-be-reviewed'] == "yes"){ matchReviewYes++;}
+					 	else if(HVResponse.getApiResult().result.match == "no" && HVResponse.getApiResult().result['to-be-reviewed'] == "no"){ noMatchReviewNo++;}
+					 		else if(HVResponse.getApiResult().result.match == "no" && HVResponse.getApiResult().result['to-be-reviewed'] == "yes"){ noMatchReviewYes++;}
 					document.getElementById("div1").innerHTML = JSON.stringify(y);
 					 
 					 //var para = document.createElement('p');
@@ -95,7 +95,7 @@
 			  }
 			};
 			const ckycString = values[2] || 'thirteenchars';
-			setTimeout(function () {HVNetworkHelper.makeFaceMatchCall(values[3], ckycString.substr(4,ckycString.length-8), {},{}, callback)}, 1000);
+			setTimeout(function () {HVNetworkHelper.makeFaceMatchCall(values[3], ckycString.substr(4,ckycString.length-8), {},{}, callback)}, 5000);
 			
 			//const el = headers.reduce(function (object, header, index) {
 			 // object[header] = values[index];
