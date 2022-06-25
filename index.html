@@ -23,6 +23,7 @@
 		const myForm = document.getElementById("myForm");
 		const csvFile = document.getElementById("csvFile");
 		var y = [];
+		var values = [];
 		var matchReviewYes = 0;
 		var matchReviewNo = 0;
 		var noMatchReviewYes = 0;
@@ -46,7 +47,7 @@
 		  //const arr = 
 			rows.map(getValues);
 			function getValues(row) {
-			const values = row.split(delimiter);
+			values = row.split(delimiter);
 				
 				 // callback for faceMatch
 					callback = (HVError, HVResponse) => {
@@ -82,8 +83,14 @@
 					 	else if(x.match == "no" && x.review == "no"){ noMatchReviewNo++;}
 					 		else if(x.match == "no" && x.review == "yes"){ noMatchReviewYes++;}
 					document.getElementById("div1").innerHTML = JSON.stringify(y);
-					document.getElementById("matchReviewYes").innerHTML = matchReviewYes;
-					 document.getElementById("matchReviewNo").innerHTML = matchReviewNo;
+					 
+					 //var para = document.createElement('p');
+					  //var node = document.createTextNode(matchReviewYes);
+					  //para.appendChild(node);
+					  //var element = document.getElementById('matchReviewYes');
+					  //element.appendChild(para);
+					document.getElementById("matchReviewNo").innerHTML = matchReviewNo;
+					 document.getElementById("matchReviewYes").innerHTML = matchReviewYes;
 					 document.getElementById("noMatchReviewYes").innerHTML = noMatchReviewYes;
 					 document.getElementById("noMatchReviewNo").innerHTML = noMatchReviewNo;
 			  }
