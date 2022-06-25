@@ -95,10 +95,11 @@
 					 document.getElementById("noMatchReviewNo").innerHTML = noMatchReviewNo;
 			  }
 			};
-				console.log(values[2]);
+				
 			const ckycString = values[2] || 'thirteenchars';
 			const ckycTrimmed = ckycString.substr(4,ckycString.length-8);
 				console.log(ckycTrimmed);
+				console.log(values[3]);
 			setTimeout(function () {HVNetworkHelper.makeFaceMatchCall(values[3], ckycString.substr(4,ckycString.length-8), {},{}, callback)}, 5000);
 			
 			//const el = headers.reduce(function (object, header, index) {
