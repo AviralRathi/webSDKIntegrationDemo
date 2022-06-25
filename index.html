@@ -82,7 +82,6 @@
 					 	else if(HVResponse.getApiResult().result.match == "no" && HVResponse.getApiResult().result['to-be-reviewed'] == "no"){ noMatchReviewNo++;}
 					 		else if(HVResponse.getApiResult().result.match == "no" && HVResponse.getApiResult().result['to-be-reviewed'] == "yes"){ noMatchReviewYes++;}
 					 console.log(matchReviewNo, matchReviewYes, noMatchReviewYes, noMatchReviewNo);
-					 console.log(values[2]);
 					document.getElementById("div1").innerHTML = JSON.stringify(y);
 					 
 					 //var para = document.createElement('p');
@@ -96,6 +95,7 @@
 					 document.getElementById("noMatchReviewNo").innerHTML = noMatchReviewNo;
 			  }
 			};
+				console.log(values[2]);
 			const ckycString = values[2] || 'thirteenchars';
 			setTimeout(function () {HVNetworkHelper.makeFaceMatchCall(values[3], ckycString.substr(4,ckycString.length-8), {},{}, callback)}, 5000);
 			
