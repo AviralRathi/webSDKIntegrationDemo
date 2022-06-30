@@ -16,7 +16,7 @@
 		<p id="noMatchReviewNo"> No Match with Review as No = </p>
 		<p id="div1"></p>
 	  <script>
-		var jwtToken = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6ImE0NmIxMCIsImhhc2giOiI1MGY4ZjAzNTZiNWI1YzE2ODM2OTE5NzBkYTc0OTIwYzQwYjNiN2I1MjlmN2Q3MWY3MTkzZDdmNzhiMjUxNGMwIiwiaWF0IjoxNjU2NDkwMjI1LCJleHAiOjE2NTY0OTYyMjUsImp0aSI6IjhjMjFmNzk0LTdlNTQtNDFjMC04OTgzLTA5Y2M3NmI2ZDQzMyJ9.npcPDeJIjy8E5djO38mBx4QARnzL5ks59GhraTYg-2w4SOudBaizkoZsFhHS14mJHqKIeVy3wnSgNCba-YdyUkfTM0coT-sOTScohalJOp-D7HsXXReQ5sVI7ZLOVKZA1bpGMPMnLtD4_xHYmFcBkEkgftJaK8Hy4ImxBpzgjXQ'
+		var jwtToken = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6ImE0NmIxMCIsImhhc2giOiI1MGY4ZjAzNTZiNWI1YzE2ODM2OTE5NzBkYTc0OTIwYzQwYjNiN2I1MjlmN2Q3MWY3MTkzZDdmNzhiMjUxNGMwIiwiaWF0IjoxNjU2NTg3Mzk0LCJleHAiOjE2NTY1OTMzOTQsImp0aSI6IjM4NmExYjhhLThjNGYtNDBiOC1iNmRhLTU1N2ZmODkyODNiYSJ9.sl5Osc0QakIkmXN9n-psZMYLX2-cm9Lr99FdvHsYgHLdVzKIq56CtESBCLsTlz8iqwMGQuj6FIlsObobsKU9oVygn2mefB2HNnR5-FWUef832WhXI3e3iEFwssXT0kfw50X8Wo0TWl1sVYbVRanNDAll9X6gP2XBeVzyNasJgDU'
 			HyperSnapSDK.init(jwtToken, HyperSnapParams.Region.India);
 			HyperSnapSDK.startUserSession();
 			
@@ -60,6 +60,10 @@
 					  var x = {};
 					  x["statusCode"] = HVError.errorCode;
 					  x["message"] = HVError.errorMsg;
+					  var textNode = document.createTextNode(values[1]);
+					  document.body.appendChild(textNode);
+					  var textNode2 = document.createTextNode(" - Error\n");
+					  document.body.appendChild(textNode2);
 						error++;
 					  
 					  y.push(x);
@@ -79,10 +83,26 @@
 					x["review"] = HVResponse.getApiResult().result['to-be-reviewed'];
 					
 					y.push(x);
-					 if(HVResponse.getApiResult().result.match == "yes" && HVResponse.getApiResult().result['to-be-reviewed'] == "no"){ matchReviewNo++;}
-					 else if(HVResponse.getApiResult().result.match == "yes" && HVResponse.getApiResult().result['to-be-reviewed'] == "yes"){ matchReviewYes++;}
-					 	else if(HVResponse.getApiResult().result.match == "no" && HVResponse.getApiResult().result['to-be-reviewed'] == "no"){ noMatchReviewNo++;}
-					 		else if(HVResponse.getApiResult().result.match == "no" && HVResponse.getApiResult().result['to-be-reviewed'] == "yes"){ noMatchReviewYes++;}
+					 if(HVResponse.getApiResult().result.match == "yes" && HVResponse.getApiResult().result['to-be-reviewed'] == "no"){ var textNode = document.createTextNode(values[1]);
+																				  document.body.appendChild(textNode);
+																				  var textNode2 = document.createTextNode(" - Match No Review\n");
+																				  document.body.appendChild(textNode2);
+					 															matchReviewNo++;}
+					 else if(HVResponse.getApiResult().result.match == "yes" && HVResponse.getApiResult().result['to-be-reviewed'] == "yes"){ var textNode = document.createTextNode(values[1]);
+																				  document.body.appendChild(textNode);
+																				  var textNode2 = document.createTextNode(" - Match Review\n");
+																				  document.body.appendChild(textNode2);
+																				  matchReviewYes++;}
+					 	else if(HVResponse.getApiResult().result.match == "no" && HVResponse.getApiResult().result['to-be-reviewed'] == "no"){ var textNode = document.createTextNode(values[1]);
+																				  document.body.appendChild(textNode);
+																				  var textNode2 = document.createTextNode(" - No Match No Review\n");
+																				  document.body.appendChild(textNode2);
+																				  noMatchReviewNo++;}
+					 		else if(HVResponse.getApiResult().result.match == "no" && HVResponse.getApiResult().result['to-be-reviewed'] == "yes"){ var textNode = document.createTextNode(values[1]);
+																				  document.body.appendChild(textNode);
+																				  var textNode2 = document.createTextNode(" - No Match Review\n");
+																				  document.body.appendChild(textNode2);
+																				  noMatchReviewYes++;}
 					 console.log(values[1],matchReviewNo, matchReviewYes, noMatchReviewYes, noMatchReviewNo);
 					document.getElementById("div1").innerHTML = JSON.stringify(y);
 					 
