@@ -60,9 +60,7 @@
 					  var x = {};
 					  x["statusCode"] = HVError.errorCode;
 					  x["message"] = HVError.errorMsg;
-					  var textNode = document.createTextNode(values[1]);
-					  document.body.appendChild(textNode);
-					  var textNode2 = document.createTextNode(" - Error\n");
+					  var textNode2 = document.createTextNode("Error, ");
 					  document.body.appendChild(textNode2);
 						error++;
 					  
@@ -83,24 +81,16 @@
 					x["review"] = HVResponse.getApiResult().result['to-be-reviewed'];
 					
 					y.push(x);
-					 if(HVResponse.getApiResult().result.match == "yes" && HVResponse.getApiResult().result['to-be-reviewed'] == "no"){ var textNode = document.createTextNode(values[1]);
-																				  document.body.appendChild(textNode);
-																				  var textNode2 = document.createTextNode(" - Match No Review\n");
+					 if(HVResponse.getApiResult().result.match == "yes" && HVResponse.getApiResult().result['to-be-reviewed'] == "no"){ 	  var textNode2 = document.createTextNode("Match No Review, ");
 																				  document.body.appendChild(textNode2);
 					 															matchReviewNo++;}
-					 else if(HVResponse.getApiResult().result.match == "yes" && HVResponse.getApiResult().result['to-be-reviewed'] == "yes"){ var textNode = document.createTextNode(values[1]);
-																				  document.body.appendChild(textNode);
-																				  var textNode2 = document.createTextNode(" - Match Review\n");
+					 else if(HVResponse.getApiResult().result.match == "yes" && HVResponse.getApiResult().result['to-be-reviewed'] == "yes"){ var textNode2 = document.createTextNode("Match Review, ");
 																				  document.body.appendChild(textNode2);
 																				  matchReviewYes++;}
-					 	else if(HVResponse.getApiResult().result.match == "no" && HVResponse.getApiResult().result['to-be-reviewed'] == "no"){ var textNode = document.createTextNode(values[1]);
-																				  document.body.appendChild(textNode);
-																				  var textNode2 = document.createTextNode(" - No Match No Review\n");
+					 	else if(HVResponse.getApiResult().result.match == "no" && HVResponse.getApiResult().result['to-be-reviewed'] == "no"){ var textNode2 = document.createTextNode("No Match No Review, ");
 																				  document.body.appendChild(textNode2);
 																				  noMatchReviewNo++;}
-					 		else if(HVResponse.getApiResult().result.match == "no" && HVResponse.getApiResult().result['to-be-reviewed'] == "yes"){ var textNode = document.createTextNode(values[1]);
-																				  document.body.appendChild(textNode);
-																				  var textNode2 = document.createTextNode(" - No Match Review\n");
+					 		else if(HVResponse.getApiResult().result.match == "no" && HVResponse.getApiResult().result['to-be-reviewed'] == "yes"){ var textNode2 = document.createTextNode("No Match Review, ");
 																				  document.body.appendChild(textNode2);
 																				  noMatchReviewYes++;}
 					 console.log(values[1],matchReviewNo, matchReviewYes, noMatchReviewYes, noMatchReviewNo);
