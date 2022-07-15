@@ -22,7 +22,7 @@
 	
 	
 	function frontPanDocKyc() {
-		let hvDocConfig = new (<any>window).HVDocConfig();
+		let hvDocConfig = new HVDocConfig();
 		
 		hvDocConfig.setOCRDetails(
 			'https://ind-docs.hyperverge.co/v2.0/readPAN',
@@ -60,7 +60,7 @@
 			}
 		};
 
-		(<any>window).HVDocsModule.start(hvDocConfig, frontPancallback); 
+		HVDocsModule.start(hvDocConfig, frontPancallback); 
 	}
 	  
 	</script>
