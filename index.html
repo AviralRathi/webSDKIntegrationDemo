@@ -34,7 +34,7 @@
 		hvDocConfig.setShouldShowDocReviewScreen(true);
 		hvDocConfig.docTextConfig.setDocCaptureTitle('FRONT SIDE OF PAN DOCUMENT');
 		
-		frontPancallback = (HVError: any, HVResponse: any) => {
+		frontPancallback = (HVError, HVResponse) => {
 			if (HVError) {
 				console.log('Front HVError', HVError);
 				var para = document.createElement('p');
