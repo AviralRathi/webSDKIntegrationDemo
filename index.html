@@ -1,145 +1,161 @@
 <html>
-	<head> 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<script src="https://hv-camera-web-sg.s3-ap-southeast-1.amazonaws.com/hyperverge-web-sdk@3.3.5/src/sdk.min.js"></script>
-	</head>
-	<body>
-	  <form id="myForm">
-		<input type="file" id="csvFile" accept=".csv" />
-		<br />
-		<input type="submit" value="Submit" />
-	  </form>
-		<p id="error">Error Count = </p>
-		<p id="matchReviewNo"> Match with Review as No = </p>
-		<p id="matchReviewYes"> Match with Review as Yes = </p>
-		<p id="noMatchReviewYes"> No Match with Review as Yes = </p>
-		<p id="noMatchReviewNo"> No Match with Review as No = </p>
-		<p id="div1"></p>
-	  <script>
-		var jwtToken = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6ImE0NmIxMCIsImhhc2giOiI1MGY4ZjAzNTZiNWI1YzE2ODM2OTE5NzBkYTc0OTIwYzQwYjNiN2I1MjlmN2Q3MWY3MTkzZDdmNzhiMjUxNGMwIiwiaWF0IjoxNjU2NTg3Mzk0LCJleHAiOjE2NTY1OTMzOTQsImp0aSI6IjM4NmExYjhhLThjNGYtNDBiOC1iNmRhLTU1N2ZmODkyODNiYSJ9.sl5Osc0QakIkmXN9n-psZMYLX2-cm9Lr99FdvHsYgHLdVzKIq56CtESBCLsTlz8iqwMGQuj6FIlsObobsKU9oVygn2mefB2HNnR5-FWUef832WhXI3e3iEFwssXT0kfw50X8Wo0TWl1sVYbVRanNDAll9X6gP2XBeVzyNasJgDU'
-			HyperSnapSDK.init(jwtToken, HyperSnapParams.Region.India);
-			HyperSnapSDK.startUserSession();
-			
-		const myForm = document.getElementById("myForm");
-		const csvFile = document.getElementById("csvFile");
-		var y = [];
-		var matchReviewYes = 0;
-		var matchReviewNo = 0;
-		var noMatchReviewYes = 0;
-		var noMatchReviewNo = 0;
-		var error = 0;
-		function csvToArray(str, delimiter = ",") {
-
-		  // slice from start of text to the first \n index
-		  // use split to create an array from string by delimiter
-		  const headers = str.slice(0, str.indexOf("\n")).split(delimiter);
-
-		  // slice from \n index + 1 to the end of the text
-		  // use split to create an array of each csv value row
-		  const rows = str.slice(str.indexOf("\n") + 1).split("\n");
-
-		  // Map the rows
-		  // split values from each row into an array
-		  // use headers.reduce to create an object
-		  // object properties derived from headers:values
-		  // the object passed as an element of the array
-		  //const arr = 
-			rows.map(getValues);
-			function getValues(row) {
-			const values = row.split(delimiter);
-				
-				 // callback for faceMatch
-					callback = (HVError, HVResponse) => {
-					 if (HVError) {
-						 console.log(HVError);
-					  //var para = document.createElement('p');
-					  //var node = document.createTextNode(JSON.stringify(HVError));
-					  //para.appendChild(node);
-					  //var element = document.getElementById('div1');
-					  //element.appendChild(para);
-					  var x = {};
-					  x["statusCode"] = HVError.errorCode;
-					  x["message"] = HVError.errorMsg;
-					  var textNode2 = document.createTextNode("Error, ");
-					  document.body.appendChild(textNode2);
-						error++;
-					  
-					  y.push(x);
-					  document.getElementById("div1").innerHTML = JSON.stringify(y);
-						document.getElementById("error").innerHTML = error;
-					 } 
-				 else {
-					 console.log(HVResponse)
-					  //var para = document.createElement('p');
-					  //var node = document.createTextNode(JSON.stringify(HVResponse));
-					  //para.appendChild(node);
-					  //var element = document.getElementById('div1');
-					  //element.appendChild(para);
-					var x = {};
-					x["statusCode"] = HVResponse.getApiResult().statusCode;
-					x["match"] = HVResponse.getApiResult().result.match;
-					x["review"] = HVResponse.getApiResult().result['to-be-reviewed'];
-					
-					y.push(x);
-					 if(HVResponse.getApiResult().result.match == "yes" && HVResponse.getApiResult().result['to-be-reviewed'] == "no"){ 	  var textNode2 = document.createTextNode("Match No Review, ");
-																				  document.body.appendChild(textNode2);
-					 															matchReviewNo++;}
-					 else if(HVResponse.getApiResult().result.match == "yes" && HVResponse.getApiResult().result['to-be-reviewed'] == "yes"){ var textNode2 = document.createTextNode("Match Review, ");
-																				  document.body.appendChild(textNode2);
-																				  matchReviewYes++;}
-					 	else if(HVResponse.getApiResult().result.match == "no" && HVResponse.getApiResult().result['to-be-reviewed'] == "no"){ var textNode2 = document.createTextNode("No Match No Review, ");
-																				  document.body.appendChild(textNode2);
-																				  noMatchReviewNo++;}
-					 		else if(HVResponse.getApiResult().result.match == "no" && HVResponse.getApiResult().result['to-be-reviewed'] == "yes"){ var textNode2 = document.createTextNode("No Match Review, ");
-																				  document.body.appendChild(textNode2);
-																				  noMatchReviewYes++;}
-					 console.log(values[1],matchReviewNo, matchReviewYes, noMatchReviewYes, noMatchReviewNo);
-					document.getElementById("div1").innerHTML = JSON.stringify(y);
-					 
-					 //var para = document.createElement('p');
-					  //var node = document.createTextNode(matchReviewYes);
-					  //para.appendChild(node);
-					  //var element = document.getElementById('matchReviewYes');
-					  //element.appendChild(para);
-					document.getElementById("matchReviewNo").innerHTML = matchReviewNo;
-					 document.getElementById("matchReviewYes").innerHTML = matchReviewYes;
-					 document.getElementById("noMatchReviewYes").innerHTML = noMatchReviewYes;
-					 document.getElementById("noMatchReviewNo").innerHTML = noMatchReviewNo;
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://hv-camera-web-sg.s3-ap-southeast-1.amazonaws.com/hyperverge-web-sdk@3.3.5/src/sdk.min.js"></script>
+  </head>
+  <body>
+    <center><h2>Hyperverge WebSDK Demo</h2></center>
+    <div class="container">
+      <div class="form-group">
+        <center><button type="button" onclick="runLiveness();" class="btn btn-primary">Start KYC</button>
+		</center>
+	  </div>
+    <div id="div1"></div>
+    </div>
+    <script>
+      // client calls the auth api to get the token from their backend server
+	var jwtToken = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6ImE0NmIxMCIsImhhc2giOiI1MGY4ZjAzNTZiNWI1YzE2ODM2OTE5NzBkYTc0OTIwYzQwYjNiN2I1MjlmN2Q3MWY3MTkzZDdmNzhiMjUxNGMwIiwiaWF0IjoxNjU1MzUxMDQ3LCJleHAiOjE2NTUzNTcwNDcsImp0aSI6ImQ4ZjVmYWFkLWNjZjAtNDMzNS1iZTRhLWU5MDgwMDYwYzU4YiJ9.PapBBJCDbJCX76OLXe6Vobf17FTgAiyGKr7DPFe7kqwvWyQUjP1Mlt15Zua244gpXgLcgx7aNCh5XKOpzU5bSdmxtPBTHYgXsDZMD9rJExXz8w45JSBS_XD5Vw4QsyoJuR73Et_HxTNxukmmX6gnTH_EyaKIEhIT2itw8i0sdJA'
+	HyperSnapSDK.init(jwtToken, HyperSnapParams.Region.India);
+	HyperSnapSDK.startUserSession();
+	  
+	var faceImageBase64 = '';
+	var docImageBase64 = '';
+	 // var imageBase64 = '';
+	  
+	 // Function wrapper for liveness button
+	function runLiveness(){
+	  //For Face Capture Screen
+		var hvFaceConfig = new HVFaceConfig(); // First create a hvFace config object
+		hvFaceConfig.setShouldShowInstructionPage(true);
+		hvFaceConfig.setLivenessAPIParameters({
+		  rejectFaceMask: 'yes',
+		  allowEyesClosed: 'no',
+		  allowMultipleFaces: 'no',
+		  rejectBlur: 'yes',
+		});
+		
+		  //callback for Selfie	
+		callback = (HVError, HVResponse) => {
+			if (HVError) {
+			  var para = document.createElement('p');
+			  var node = document.createTextNode(JSON.stringify(HVError));
+			  para.appendChild(node);
+			  var element = document.getElementById('div1');
+			  element.appendChild(para);
+			} 
+			else {
+				  var para = document.createElement('p');
+				  var node = document.createTextNode(JSON.stringify(HVResponse));
+				  para.appendChild(node);
+				  var element = document.getElementById('div1');
+				  element.appendChild(para);
+				var apiResults = HVResponse.getApiResult();
+				var apiHeaders = HVResponse.getApiHeaders();
+				faceImageBase64 = HVResponse.getImageBase64();
+				var attempts = HVResponse.getAttemptsCount();
+				runOCRFront();
 			  }
 			};
-				
-			//const ckycString = values[2] || 'thirteenchars';
-			//const ckycTrimmed = ckycString.substr(4,ckycString.length-8);
-				//console.log(ckycTrimmed);
-				//console.log(values[3]);
-			//setTimeout(function () {HVNetworkHelper.makeFaceMatchCall(values[3], ckycString.substr(4,ckycString.length-8), {},{}, callback)}, 5000);
-			setTimeout(function () {HVNetworkHelper.makeFaceMatchCall(values[3], values[2], {},{}, callback)}, 5000);
-			
-			//const el = headers.reduce(function (object, header, index) {
-			 // object[header] = values[index];
-			  //return object;
-			//}, {});
-			//return el;
-		  };
 
-		  // return the array
-		  //return arr;
-		}
+		HVFaceModule.start(hvFaceConfig, callback);// Start the HVFaceModule. Callback is the function that receives the data once the api call finishes.It gets two objects HVError and HVResponse.
+	}
+	  
+	 //For Doc Front Capture Screen
+	function runOCRFront(){
+		hvDocConfig = new HVDocConfig();
+		hvDocConfig.setOCRDetails(
+		  'https://ind-docs.hyperverge.co/v2.0/readKYC',
+		  hvDocConfig.DocumentSide.FRONT,
+		  { },
+		  { },
+		);
+		hvDocConfig.setShouldShowInstructionPage(true);
+		hvDocConfig.setShouldShowDocReviewScreen(true);
+		hvDocConfig.setChooseDocumentCaptureOption(true);
+		hvDocConfig.docTextConfig.setDocCaptureTitle('Capture Front of ID Card');
+			 
+		//Define Callback function for Document OCR
+			 
+		callback = (HVError, HVResponse) => {
+			if (HVError) {
+			  var para = document.createElement('p');
+			  var node = document.createTextNode(JSON.stringify(HVError));
+			  para.appendChild(node);
+			  var element = document.getElementById('div1');
+			  element.appendChild(para);
+			}
+			else {
+				var para = document.createElement('p');
+				var node = document.createTextNode(JSON.stringify(HVResponse));
+				para.appendChild(node);
+				var element = document.getElementById('div1');
+				element.appendChild(para);
+				var apiResults = HVResponse.getApiResult();
+				var apiHeaders = HVResponse.getApiHeaders();
+				docImageBase64 = HVResponse.getImageBase64();
+				var attempts = HVResponse.getAttemptsCount();
+				runOCRBack();
+			}
+		};
+		HVDocsModule.start(hvDocConfig, callback); // Start the HVDocsModule. Callback is the function that receives the data once the api call finishes.It gets two objects HVError and HVResponse.
+	
+	}
+	 
+	 // Function wrapper for documents button
+	 function runOCRBack(){
+	
+		 //For Document Back Capture Screen
+		hvDocConfig = new HVDocConfig(); // First create a hvdoc config object
+		hvDocConfig.setOCRDetails(
+		'https://ind-docs.hyperverge.co/v2.0/readKYC',
+		 hvDocConfig.DocumentSide.BACK,
+		  {},
+		  {},
+		);
+		hvDocConfig.setShouldShowDocReviewScreen(true);
+		hvDocConfig.docTextConfig.setDocCaptureTitle('Capture Back of ID Card');
 
-		myForm.addEventListener("submit", function (e) {
-		  e.preventDefault();
-		  const input = csvFile.files[0];
-		  const reader = new FileReader();
-
-		  reader.onload = function (e) {
-			const text = e.target.result;
-			//const data = 
-			csvToArray(text);
-			//document.write(JSON.stringify(data));
-		  };
-		  
-		  reader.readAsText(input);
-		});
-	  </script>
-	</body>
-</html>
+		 callback = (HVError, HVResponse) => {
+			  if (HVError) {
+				  var para = document.createElement('p');
+				  var node = document.createTextNode(JSON.stringify(HVError));
+				  para.appendChild(node);
+				  var element = document.getElementById('div1');
+				  element.appendChild(para);
+       			 } 
+			 else {
+				  var para = document.createElement('p');
+				  var node = document.createTextNode(JSON.stringify(HVResponse));
+				  para.appendChild(node);
+				  var element = document.getElementById('div1');
+				  element.appendChild(para);
+				  var apiResults = HVResponse.getApiResult();
+				  var apiHeaders = HVResponse.getApiHeaders();
+				  var attempts = HVResponse.getAttemptsCount();
+				  runFaceMatch();
+		  }
+		};
+		HVDocsModule.start(hvDocConfig, callback); // Start the HVDocsModule. Callback is the function that receives the data once the api call finishes.It gets two objects HVError and HVResponse.
+	}	 
+	
+	
+	//function wrapper for face match
+	function runFaceMatch(){
+	 // callback for faceMatch
+		callback = (HVError, HVResponse) => {
+		  if(HVError) {
+			var errorCode = HVError.getErrorCode();
+			var errorMessage = HVError.getErrorMessage();
+		  } 
+		  else if(HVResponse) {
+			var apiResults = HVResponse.getApiResult();
+			var apiHeaders = HVResponse.getApiHeaders();
+		  }
+		};
+	    
+		HVNetworkHelper.makeFaceMatchCall(faceImageBase64, docImageBase64, {}, {}, callback); // Make Face Match call for a comparison between selfie and doc image   
+	} 
+	  
+	</script>
+  </body>
+</html>	
