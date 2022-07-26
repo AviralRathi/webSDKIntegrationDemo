@@ -21,12 +21,11 @@
         const hyperKycConfig = new HyperKycConfig(
             accessToken,
             "workflow_fE1ymfh",
-            "testing-for-noww-123"
+            "testing-for-pice"
         );
-        //hyperKycConfig.setInputs(
-          //                          {"ifsc":"",
-           //                          "accountNumber":"50100296157990"}
-            //                    );
+        hyperKycConfig.setInputs(
+                                  {"doc64Image":""}
+                               );
         HyperKYCModule.launch(hyperKycConfig, handler);
   
     }
