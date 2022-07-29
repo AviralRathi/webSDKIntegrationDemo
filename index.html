@@ -3,7 +3,7 @@
 
 <head>
     <script
-        src="https://hv-camera-web-sg.s3.ap-southeast-1.amazonaws.com/hyperverge-web-sdk@5.1.3/src/sdk.min.js"></script>
+        src="https://hv-camera-web-sg.s3.ap-southeast-1.amazonaws.com/hyperverge-web-sdk@demo/src/sdk.min.js"></script>
 </head>
 
 <body>
@@ -20,11 +20,15 @@
         const hyperKycConfig = new HyperKycConfig(
             accessToken,
             "workflow_fE1ymfh",
-            "testing-for-dbCheckWrapper"
+            "testing-for-ACTYV"
         );
-        //hyperKycConfig.setInputs(
-          //                        {"doc64Image":base64String}
-           //                    );
+        hyperKycConfig.setInputs(
+              {
+                 "name":"aviral rathi",
+                 "idNumber":"CHEPR8080E",
+                 "udhyamBase64":"base64string"
+              }
+        );
         HyperKYCModule.launch(hyperKycConfig, handler);
   
     }
