@@ -15,11 +15,12 @@
 </body>
 <script>
     function starOnboarding() {
+        const result = Math.random().toString(36).substring(2,7);
         const accessToken = "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6ImE0NmIxMCIsImhhc2giOiI1MGY4ZjAzNTZiNWI1YzE2ODM2OTE5NzBkYTc0OTIwYzQwYjNiN2I1MjlmN2Q3MWY3MTkzZDdmNzhiMjUxNGMwIiwiaWF0IjoxNjY5Mjc0Mzk5LCJleHAiOjE2NjkzNjA3OTksImp0aSI6ImI4MGExYzBiLTNiNjYtNDU4ZC1hNzAyLTg3ZTdlZWI5ZGQ0MCJ9.MpAYZD9m6iYkmeZP6rTiz__A-UmpJti3v1nrao4Cu1zyL0ZAYy7lha0DbpJaBlapV7FLVi2sjJeRFebInRo5bGlFTRM2rd0Pkf2BuzkQJ6-uSNwB7yIjXPDyi2WDKv1NLAzKDZcMUJzhLq5Bho4hDfFd8GX3OIJAb_xmVsVtFbI";
         const hyperKycConfig = new HyperKycConfig(
             accessToken,
             "workflow_fE1ymfh",
-            "testingwithPawanHeroFlow"
+            result
         );
 //         hyperKycConfig.setInputs(
 //             {    
