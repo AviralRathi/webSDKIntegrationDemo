@@ -16,10 +16,10 @@
 <script>
     function starOnboarding() {
         const result = Math.random().toString(36).substring(2,7);
-        const accessToken = "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6ImE0NmIxMCIsImhhc2giOiI1MGY4ZjAzNTZiNWI1YzE2ODM2OTE5NzBkYTc0OTIwYzQwYjNiN2I1MjlmN2Q3MWY3MTkzZDdmNzhiMjUxNGMwIiwiaWF0IjoxNjY5ODgyNjI3LCJleHAiOjE2Njk5NjkwMjcsImp0aSI6IjNhZmM5N2JiLWVkY2YtNDg1OC04MGY4LTAxYTFkYTQ1NmUxNyJ9.QFEigLCo43m-Fpv8rqVQ-JExIuFXzlc01lm2Y_h5EADXRMryAp7jUXAnFRTJbQzcgBNJmAExV7vu6RGIr26-1Fu6SjMHbIX3jqHCn-5jPthFBr07cNKxkxH_4WPBAUFlTC9kyH5sM4YRr0Ie2ja7kYMnWtZgJS7BB9Yk1x2ckts";
+        const accessToken = "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6IjdudWx2aCIsImhhc2giOiJiM2JmZDRkMDc2ZjNjOTZlMDBiYjJkYzBmNzI0NjQ0ZGEwM2ZkMzYxMDk2MGYzYWNhNGQzNzdlZjdkMWQ5ZTg4IiwiaWF0IjoxNjY5ODgxMjIxLCJleHAiOjE2Njk5Njc2MjEsImp0aSI6IjgzMDY1NDhiLTVlNGYtNDAxNS1iNDdiLTE3MDFjZDJkNzkyNCJ9.JUEQ18ERtxMKYvHOt9gXy-RiWxGp-tdQQrVEy_EqLaf-IR4i4mjvPXXyyWT_Zvdb9NiXv5cgyLWVeY3Z-vsDD2awg9SpcITwhzLEQMQuO9fMasVNYFMpQJ_JBm9gw06xhu2Ywz6LMwv9v14x76XvDqYLYJ3E2BS06cOR2qYDwX0";
         const hyperKycConfig = new HyperKycConfig(
             accessToken,
-            "workflow_fE1ymfh",
+            "workflow_manav-test",
             result
         );
 //         hyperKycConfig.setInputs(
