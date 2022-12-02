@@ -3,7 +3,7 @@
 
 <head>
     <script
-        src="https://hv-camera-web-sg.s3.ap-southeast-1.amazonaws.com/hyperverge-web-sdk@5.3.0/src/sdk.min.js"></script>
+        src="https://hv-camera-web-sg.s3.ap-southeast-1.amazonaws.com/hyperverge-web-sdk@internalTesting/src/sdk.min.js"></script>
 </head>
 
 <body>
@@ -16,11 +16,11 @@
 <script>
     function starOnboarding() {
         const result = Math.random().toString(36).substring(2,7);
-        const accessToken = "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6InF3OXJqZyIsImhhc2giOiI2NTQyYTIxNzE3ZGFkNTUzMGZiNjg3YTE2NjFhMWQ3YWRhNmFiMWUzMjcxNDNiYzIzOGEyYmNlZDY0NmIwZTgwIiwiaWF0IjoxNjY5OTc1NTE4LCJleHAiOjE2Njk5ODE1MTgsImp0aSI6Ijk1NzNlYmY3LTVjM2YtNDNkNy04ZmU2LTE5Yzc3Mzg0YjRiOCJ9.nXZZE7_rhKupxQJdylE4WBhn3-hAip4MahTELH4KDZTdVdnFb0_n6gDdvUnaBRDLkqA_AGCHpLmcDtWPz4n4v8G3SkdWh5XqG6ird1CKMigN8FOKr3Btk_o-DOOsb-2szbrq2r2QaXie7qq44XxvxlmVNP0Vxr2D736siCxI47o";
+        const accessToken = "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6ImNvMG01OSIsImhhc2giOiI4MWJmMDAwZjI2NjhlNWNiNzVlYWVmNjU0MDM2M2ZlMDBhMDdiNGJkNmNjZmE1NGQ3NmUzODRmNWI4ZDJlNzBhIiwiaWF0IjoxNjY5OTc5NjQzLCJleHAiOjE2Njk5ODU2NDMsImp0aSI6IjIyYjkzNGU5LTQ1MmEtNGI3MC04NTY2LWQwNjU4NGVlYzVhZiJ9.aJ2Juk-Q-T9i15QlbnJ7qoJY7m68V4JFx6OqCDEiDUM0d8SPBH9wusooFbf7Hi2kiG_2F-WAu-4mTV4WtirWycyuz-1bISKVoNMF153GeL5GbF2-5lu5RdUzyz_-IIqqqWin5bmIhuyYCCw2x6hF_zhR74ulErH03HfXb5gx914";
         const hyperKycConfig = new HyperKycConfig(
             accessToken,
-            "ckyc_ovd",
-            "HVTestFromWebSDK-1"
+            "ckyc-ovd-branchFlow",
+            "TestingFromHV-WebSDK-1"
         );
 //         hyperKycConfig.setInputs(
 //             {    
