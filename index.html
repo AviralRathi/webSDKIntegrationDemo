@@ -16,11 +16,11 @@
 <script>
     function starOnboarding() {
         const result = Math.random().toString(36).substring(2,7);
-        const accessToken = "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6IjdudWx2aCIsImhhc2giOiJiM2JmZDRkMDc2ZjNjOTZlMDBiYjJkYzBmNzI0NjQ0ZGEwM2ZkMzYxMDk2MGYzYWNhNGQzNzdlZjdkMWQ5ZTg4IiwiaWF0IjoxNjY5ODg2MDM1LCJleHAiOjE2Njk5NzI0MzUsImp0aSI6IjEyNmI1MDhjLWU4ZTMtNDA4Ni1iZjAwLWJkZGE1NGQ0YjI2MSJ9.ttqowyOv1SBm7psKZjI77QFAOfK5_JsF3xZc_6MH0AA3uvfn3hwOrjpt2ce768qQY938j86a359yEhpIKgmQP4z20eZtJjapqBxlZSHYpefMLWxyLcRFuklXHLvjVvYDtqFiBz5eK1y2c1jqYyS7mP4l2uCcvo6bPR0hQibtUzM";
+        const accessToken = "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6ImNvMG01OSIsImhhc2giOiI4MWJmMDAwZjI2NjhlNWNiNzVlYWVmNjU0MDM2M2ZlMDBhMDdiNGJkNmNjZmE1NGQ3NmUzODRmNWI4ZDJlNzBhIiwiaWF0IjoxNjY5OTc0ODI0LCJleHAiOjE2Njk5ODA4MjQsImp0aSI6IjNjYzY1MzY2LTY0ZWEtNGFhMy05ODFiLWVmODU4NzEwZTVjMyJ9.DD3INGhBDoMGvRhNUqCvkYHHVKJOPNFwEh9wHcTg8Uu0YV3VQZX7PLya-3TwHaVnxi_9-sDsBFjLLa1LzE2k03psMlV2emo5HkFHjiDGnrq6k02lpte0QLT-qbHESaoRRw4Px8Ohpu5yVhhv0Jx7tz-jwLdilFQR3BQ9_gpkuis";
         const hyperKycConfig = new HyperKycConfig(
             accessToken,
-            "workflow_manav-test",
-            result
+            "ckyc-ovd-branchFlow",
+            "HVTestFromWebSDK-1
         );
 //         hyperKycConfig.setInputs(
 //             {    
@@ -28,12 +28,12 @@
 //             }
 //           );
         
-           hyperKycConfig.setInputs(
-              {
-                 "name":"Aviral Rathi",
-                 "mobile":"9479015160"
-              }
-        );
+//            hyperKycConfig.setInputs(
+//               {
+//                  "name":"Aviral Rathi",
+//                  "mobile":"9479015160"
+//               }
+//         );
         
         HyperKYCModule.launch(hyperKycConfig, handler);
   
