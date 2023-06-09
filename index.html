@@ -3,7 +3,7 @@
 
 <head>
     <script
-        src="https://hv-camera-web-sg.s3-ap-southeast-1.amazonaws.com/hyperverge-web-sdk@6.3.0/src/sdk.min.js"></script>
+        src="https://hv-camera-web-sg.s3-ap-southeast-1.amazonaws.com/hyperverge-web-sdk@7.1.0/src/sdk.min.js"></script>
 </head>
 
 <body>
@@ -16,10 +16,10 @@
 <script>
     function starOnboarding() {
         const result = Math.random().toString(36).substring(2,7);
-        const accessToken = "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6ImM3NWJjOCIsImhhc2giOiI4ZWY2MTIzMmQ5ZThlZmFlNjk1MTdiYWNhMmY4YTYxOWMzYWVkOTA2MGMyMmIxNDBmMzYwOGEyOThjOTZlNTgwIiwiaWF0IjoxNjgwMTYyNDQyLCJleHAiOjE2ODAyNDg4NDIsImp0aSI6ImViOTcxYzZjLTNjZjgtNGNkZS05Njg5LTYxNGQ0Y2RhYzk5ZCJ9.Uq-vYZgURlVbIPtPjjjeq6ldmFbEtuJ9OKlqcq4tUZaKDXAWb1LZ1gxSh_SXoW5mztALIuTnalPUjdd6Jiqj7MNsa3zdCXsYiU3ORCBO97sDDKGtfT39TkjLm2_Py3KXoS38mjDof6fy2O8Qjek9lqEpMBbZxeWJqm3MCJYrrfo";
+        const accessToken = "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6InRkZHFmaCIsImhhc2giOiI1MzFmZmI0MGI3OGQ2Mzk1ZmFlNmM5MWIwZDhkM2E3OTk4YTU4MTBiOWZhNTAyNjJkODg0MmRkODQ4NTZhZmZhIiwiaWF0IjoxNjg2MzA3NDQ4LCJleHAiOjE2ODYzOTM4NDgsImp0aSI6IjE2YTY1ZGRlLTA1YjEtNGQyYi05NTJkLTY5MTU0YjI1OTFmMSJ9.pMEW0_ltZz9qxzd_er4paNkc37aBSMbIKFt3Kt8pJIAFDZw32zdKRwk-BWPmH86vpbLQknBHC4NSCe16-mejAr5nAEkjhyORisGhNxkiflBR3T40zmfdoWp-mzHAoJ7T-a_BXTgo8aJLD4Ob0we1J_O1iYttEEK1BzZTWNNNNow";
         const hyperKycConfig = new HyperKycConfig(
             accessToken,
-            "hfc_phase2",
+            "aviral_hfc_test",
             result
         );
 //         hyperKycConfig.setInputs(
@@ -32,6 +32,8 @@
               {
                  "name":"Aviral Rathi",
                  "mobile":"9479015160",
+                  "panNo":"CHEPR8080E",
+                  "panDOB":"11-12-1997",
                   "applicationId":"testing_1"
               }
         );
